@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LogIn, AlertCircle } from 'lucide-react'
 
@@ -9,13 +9,7 @@ export default function LoginPage() {
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
 
-  useEffect(() => {
-    // Check if user is already authenticated
-    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true'
-    if (isAuthenticated) {
-      navigate('/home', { replace: true })
-    }
-  }, [])
+  // Do not auto-redirect on load; require explicit login each visit
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -34,11 +28,10 @@ export default function LoginPage() {
 
     // Demo credentials (optional - accept any for PoC)
     if (username.trim() && password.length >= 1) {
-      // Store auth state in localStorage
-      localStorage.setItem('isAuthenticated', 'true')
-      localStorage.setItem('username', username)
-      navigate('/home')
-  navigate('/home')
+        // Store auth state in sessionStorage (clears on browser session end)
+        sessionStorage.setItem('isAuthenticated', 'true')
+        sessionStorage.setItem('username', username)
+        navigate('/home')
     } else {
       setError('Invalid username or password')
       setIsLoading(false)
