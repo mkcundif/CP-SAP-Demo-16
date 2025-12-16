@@ -2,7 +2,7 @@
 =======
 # Node/Vite build outputs
 dist/
-docs/
+#docs/
 node_modules/
 
 # Logs
