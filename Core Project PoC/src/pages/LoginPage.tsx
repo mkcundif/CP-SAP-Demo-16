@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { LogIn, AlertCircle } from 'lucide-react'
 
@@ -8,14 +8,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [isLoading, setIsLoading] = useState(false)
-
-  useEffect(() => {
-    // Check if user is already authenticated
-    const isAuthenticated = localStorage.getItem('isAuthenticated') === 'true'
-    if (isAuthenticated) {
-      navigate('/home', { replace: true })
-    }
-  }, [])
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -37,8 +29,7 @@ export default function LoginPage() {
       // Store auth state in localStorage
       localStorage.setItem('isAuthenticated', 'true')
       localStorage.setItem('username', username)
-      navigate('/home')
-  navigate('/home')
+      navigate('/')
     } else {
       setError('Invalid username or password')
       setIsLoading(false)
